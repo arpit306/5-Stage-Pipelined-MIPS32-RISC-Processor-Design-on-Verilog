@@ -55,6 +55,7 @@ J Loop // Branch to Loop unconditionally
 HLT // Halt execution  
 ## ▫️ Instruction Encoding  
 ![ISR](https://user-images.githubusercontent.com/68592620/231771092-0c93aeb3-6b01-478f-a363-ecadb1ec578a.png)  
+- shamt : shift amount, funct : opcode extension for additional functions.
 - Some instructions require two register operands rs & rt as input, while some require only rs. 
 - This requirement is only identified only after the instruction is decoded. 
 - While decoding is going on, we can prefetch the registers in parallel, which may or may not be used later. 

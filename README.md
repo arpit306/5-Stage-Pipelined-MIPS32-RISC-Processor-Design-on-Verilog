@@ -29,8 +29,7 @@ In this repository, I have mentioned the details and code of the MIPS32 ISA base
 | Base addressing      | LW R5, 150(R7)    |
 | PC relative addressing  | BEQZ R3, Label   |
 | Pseudo-direct addressing | J Label      |
-
-## ▫️ Instructions considered 
+## ▫️ Instructions Considered  
 Not all instructions of MIPS32 are considered in this design, for implementation sake only a few instructions are considered, mentioned below:  
 - Load and Store Instructions  
 LW R2,124(R8) // R2 = Mem[R8+124]  
@@ -55,3 +54,15 @@ J Loop // Branch to Loop unconditionally
 - Miscellaneous Instructioon  
 HLT // Halt execution  
 ## ▫️ Instruction Encoding  
+![ISR](https://user-images.githubusercontent.com/68592620/231771092-0c93aeb3-6b01-478f-a363-ecadb1ec578a.png)  
+- Some instructions require two register operands rs & rt as input, while some require only rs. 
+- This requirement is only identified only after the instruction is decoded. 
+- While decoding is going on, we can prefetch the registers in parallel, which may or may not be used later. 
+- Similarly, the 16-bit and 26-bit immediate data are retrieved and signextended to 32-bits in case they are required later.  
+## ▫️ Stages of Execution  
+The instruction execution cycle contains the following 5 stages in order:  
+1. IF : Instruction Fetch  
+2. ID : Instruction Decode / Register Fetch  
+3. EX : Execution / Effective Address Calculation  
+4. MEM : Memory Access / Branch Completion  
+5. WB : Register Write-back  

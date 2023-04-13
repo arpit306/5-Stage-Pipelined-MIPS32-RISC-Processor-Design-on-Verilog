@@ -230,4 +230,79 @@ The instruction execution cycle contains the following 5 stages in order:
     endcase
   end
 endmodule
-  ```
+  ```  
+## ▫️ Example Program Testbench Code  
+Steps:  
+1. Initialize register R1 with 10.  
+2. Initialize register R2 with 20.  
+3. Initialize register R3 with 25.  
+4. Add the three numbers and store the sum in R5. 
+ 
+Instructions :  
+| Assembly Instruction  | Machine Code | Hexcode |  
+| ------------- | ------------- | ------------- |  
+| ADDI R1,R0,10  | 001010 00000 00001 0000000000001010  | 2801000a  |  
+| ADDI R2,R0,20 | 001010 00000 00010 0000000000010100  | 28020014  |  
+| ADDI R3,R0,25 | 001010 00000 00011 0000000000011001  | 28030019  |  
+| OR R7,R7,R7 (dummy)| 001010 00000 00011 0000000000011001  | 0ce77800  |  
+| OR R7,R7,R7 (dummy)| 001010 00000 00011 0000000000011001  | 0ce77800  |  
+| ADD R4,R1,R2 | 000000 00001 00010 00100 00000 000000  | 00222000  |  
+| OR R7,R7,R7 (dummy)| 001010 00000 00011 0000000000011001  | 0ce77800 |  
+| ADD R5,R4,R3 | 000000 00100 00011 00101 00000 000000  | 00832800  |  
+| HLT | 111111 00000 00000 00000 00000 000000  | fc000000  |  
+
+Testbench Code :  
+``` module test_mips32;
+  reg clk1, clk2;
+  integer k;
+  pipe_MIPS32 mips (clk1, clk2);
+  initial
+  begin
+    clk1 = 0;
+    clk2 = 0;
+    repeat (20) // Generating two-phase clock
+    begin
+      #5 clk1 = 1;
+      #5 clk1 = 0;
+      #5 clk2 = 1;
+      #5 clk2 = 0;
+    end
+  end
+  initial
+  begin
+    for (k=0; k<31; k++)
+      mips.Reg[k] = k;
+    mips.Mem[0] = 32'h2801000a; // ADDI R1,R0,10
+    mips.Mem[1] = 32'h28020014; // ADDI R2,R0,20
+    mips.Mem[2] = 32'h28030019; // ADDI R3,R0,25
+    mips.Mem[3] = 32'h0ce77800; // OR R7,R7,R7 -- dummy instr.
+    mips.Mem[4] = 32'h0ce77800; // OR R7,R7,R7 -- dummy instr.
+    mips.Mem[5] = 32'h00222000; // ADD R4,R1,R2
+    mips.Mem[6] = 32'h0ce77800; // OR R7,R7,R7 -- dummy instr.
+    mips.Mem[7] = 32'h00832800; // ADD R5,R4,R3
+    mips.Mem[8] = 32'hfc000000; // HLT
+    mips.HALTED = 0;
+    mips.PC = 0;
+    mips.TAKEN_BRANCH = 0;
+    #280
+     for (k=0; k<6; k++)
+       $display ("R%1d - %2d", k, mips.Reg[k]);
+  end
+  initial
+  begin
+    $dumpfile ("mips.vcd");
+    $dumpvars (0, test_mips32);
+    #300 $finish;
+  end
+endmodule
+  ```  
+Waveform :  
+![waveform](https://user-images.githubusercontent.com/68592620/231780893-8d26f3ff-9b60-44a5-93a7-c40f17219e6e.png)  
+
+Console output :  
+``` R0 -  0
+R1 - 10
+R2 - 20
+R3 - 25
+R4 - 30
+R5 - 55  ```

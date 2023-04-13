@@ -2,8 +2,8 @@
 In this repository, I have mentioned the details and code of the MIPS32 ISA based RISC Processor, which is implemented in 5 stage pipelined configuration.  
 ## Table of contents  
 ▫️ MIPS32  
-▫️ Instructions considered  
 ▫️ Addressing Modes  
+▫️ Instructions considered  
 ▫️ Instruction Encoding  
 ▫️ Stages of Execution  
 ▫️ Non Pipelined DataPath  
@@ -31,4 +31,27 @@ In this repository, I have mentioned the details and code of the MIPS32 ISA base
 | Pseudo-direct addressing | J Label      |
 
 ## ▫️ Instructions considered 
-Not all instructions of MIPS32 are considered in this design, for implementation sake only a few instructions are considered, mentioned below:
+Not all instructions of MIPS32 are considered in this design, for implementation sake only a few instructions are considered, mentioned below:  
+- Load and Store Instructions  
+LW R2,124(R8) // R2 = Mem[R8+124]  
+SW R5,-10(R25) // Mem[R25-10] = R5  
+- Arithmetic and Logic Instructions (only register operands)  
+ADD R1,R2,R3 // R1 = R2 + R3  
+ADD R1,R2,R0 // R1 = R2 + 0  
+SUB R12,R10,R8 // R12 = R10 – R8  
+AND R20,R1,R5 // R20 = R1 & R5  
+OR R11,R5,R6 // R11 = R5 | R6  
+MUL R5,R6,R7 // R5 = R6 * R7  
+SLT R5,R11,R12 // If R11 < R12, R5=1; else R5=0  
+- Arithmetic and Logic Instructions (immediate operand)  
+ADDI R1,R2,25 // R1 = R2 + 25  
+SUBI R5,R1,150 // R5 = R1 – 150  
+SLTI R2,R10,10 // If R10<10, R2=1; else R2=0  
+- Branch Instructions  
+BEQZ R1,Loop // Branch to Loop if R1=0  
+BNEQZ R5,Label // Branch to Label if R5!=0  
+- Jump Instruction  
+J Loop // Branch to Loop unconditionally  
+- Miscellaneous Instructioon  
+HLT // Halt execution  
+## ▫️ Instruction Encoding  

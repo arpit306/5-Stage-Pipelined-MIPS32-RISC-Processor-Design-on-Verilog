@@ -66,6 +66,7 @@ The instruction execution cycle contains the following 5 stages in order:
 3. EX : Execution / Effective Address Calculation  
 4. MEM : Memory Access / Branch Completion  
 5. WB : Register Write-back  
+- micro operations not shown here.
 ## ▫️ Non Pipelined DataPath  
 ![nonpipelined](https://user-images.githubusercontent.com/68592620/231771101-f7ea7e00-5c8c-4b6d-ae0c-a0419066e7ad.png)  
 ## ▫️ Pipelined DataPath  
@@ -305,4 +306,14 @@ R1 - 10
 R2 - 20
 R3 - 25
 R4 - 30
-R5 - 55  ```
+R5 - 55  
+```  
+## ▫️ EDAplayground Link  
+``` https://edaplayground.com/x/t8Vx ```  
+## ▫️ Known problems and issues  
+Following pipelining hazards are present in the given design :  
+- Structural Hazards due to shared hardware.  
+- Data Hazards due to instruction data dependency.  
+- Control hazards sue to brach instructions.  
+## ▫️ References  
+NPTEL \& IIT KGP 'Hardware Modeling using Verilog'- Prof. Indranil Sengupta

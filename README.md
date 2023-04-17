@@ -85,7 +85,8 @@ The instruction execution cycle contains the following 5 stages in order:
 ## ▫️ Pipelined DataPath  
 ![pipelined](https://user-images.githubusercontent.com/68592620/231771102-12c05fa9-6e74-4835-abc6-1bd9b20e8453.png)  
 ## ▫️ Verilog Design Code  
-``` module pipe_MIPS32 (clk1, clk2);
+``` 
+  module pipe_MIPS32 (clk1, clk2);
   input clk1, clk2; // Two-phase clock
   reg [31:0] PC, IF_ID_IR, IF_ID_NPC;
   reg [31:0] ID_EX_IR, ID_EX_NPC, ID_EX_A, ID_EX_B, ID_EX_Imm;
@@ -266,7 +267,8 @@ Instructions :
 | HLT | 111111 00000 00000 00000 00000 000000  | fc000000  |  
 
 Testbench Code :  
-``` module test_mips32;
+``` 
+  module test_mips32;
   reg clk1, clk2;
   integer k;
   pipe_MIPS32 mips (clk1, clk2);

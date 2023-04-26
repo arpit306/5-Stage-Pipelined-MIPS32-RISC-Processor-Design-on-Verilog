@@ -329,6 +329,6 @@ R5 - 55
 Following pipelining hazards are present in the given design :  
 - Structural Hazards due to shared hardware.  
 - Data Hazards due to instruction data dependency.  
-- Control hazards due to brach instructions.  
+- Control hazards due to branch instructions.  
 ## ▫️ References  
 [NPTEL \& IIT KGP 'Hardware Modeling using Verilog'- Prof. Indranil Sengupta](https://nptel.ac.in/courses/106105165)
